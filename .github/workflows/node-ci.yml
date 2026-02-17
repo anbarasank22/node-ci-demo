@@ -25,3 +25,6 @@ jobs:
       - name: Run Tests
         run: npm test
 
+      - name: Run a Script
+        run: echo "Hello Devops Engineer!"
+
