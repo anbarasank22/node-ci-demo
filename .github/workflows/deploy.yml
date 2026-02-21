@@ -23,8 +23,17 @@ jobs:
         run: echo "Running tests..."
 
   deploy:
-    runs-on: ubuntu-latest
-    needs: test
-    steps:
-      - name: Deploy to EC2
-        run: echo "Deploying..."
+  runs-on: ubuntu-latest
+  needs: test
+  steps:
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          cd /home/ubuntu/your-repo-name
+          git pull origin master
+          npm install
+          pm2 restart app || pm2 start index.js --name app
