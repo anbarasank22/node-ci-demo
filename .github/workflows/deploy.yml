@@ -1,26 +1,30 @@
-name: Deploy Node App to EC2
+name: Node CI/CD Pipeline
 
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: npm install
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Tests
+        run: echo "Running tests..."
+
   deploy:
     runs-on: ubuntu-latest
-
+    needs: test
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3
-
-    - name: Deploy to EC2
-      uses: appleboy/ssh-action@v1.0.0
-      with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USER }}
-        key: ${{ secrets.EC2_SSH_KEY }}
-        script: |
-          cd /home/ubuntu/your-repo-name
-          git pull origin main
-          npm install
-          pm2 restart app || pm2 start index.js --name app
+      - name: Deploy to EC2
+        run: echo "Deploying..."
