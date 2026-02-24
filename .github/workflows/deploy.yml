@@ -34,5 +34,5 @@ jobs:
        key: ${{ secrets.UBUNTU_KEY }}
        script: |
          echo "Connected successfully"
-         cd /home/ubuntu/your-repo-name
+         cd /home/ubuntu/node-ci-demo
          git pull origin master
