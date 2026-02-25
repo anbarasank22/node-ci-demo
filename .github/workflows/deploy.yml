@@ -37,7 +37,10 @@ jobs:
          git config --global --add safe.directory /home/ubuntu/node-ci-demo
          cd /home/ubuntu/node-ci-demo
          git pull origin master
-         npm install
-         pm2 restart app || pm2 start index.js --name app
+         sudo apt-get update -y
+         sudo apt-get install node.js -y
+         sudo apt-get install npm -y
+         sudo apt-get install pm2 -y
+         sudo pm2 restart app || pm2 start index.js --name app 
          
          
