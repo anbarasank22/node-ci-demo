@@ -38,9 +38,12 @@ jobs:
          cd /home/ubuntu/node-ci-demo
          git pull origin master
          sudo apt-get update -y
-         sudo apt-get install node.js -y
-         sudo apt-get install npm -y
-         sudo apt-get install pm2 -y
+         #sudo apt-get install node.js -y
+         #sudo apt-get install npm -y
+         sudo npm install -g pm2
+         pm2 -v
+         node -v
+         npm -v
          sudo pm2 restart app || pm2 start index.js --name app 
          
          
